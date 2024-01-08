@@ -1,0 +1,75 @@
+:root {
+  --bs-blue: #0c4dde;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-white: #fff;
+  --bs-black: #000;
+  --bs-gray: #6c757d;
+  --bs-gray50: #7F7F7F;
+  --bs-gray-light: #dee2e6;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+  --bs-light: #FFF;
+  --bs-toggle: #a7abb3;
+}
+
+.dark-theme {
+  --bs-light: var(--bs-dark);
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background: var(--bs-toggle);
+  box-shadow: inset 0 4px 18px rgba(0, 0, 0, 0.1);
+  width: 5.9rem;
+  height: 2.4rem;
+  border-radius: 0.8rem;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox-label .ball {
+  background-color: var(--bs-white);
+  width: 2.8rem;
+  height: 3rem;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 8px;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(38px);
+}
+
+.fa-sun {
+  color: var(--bs-white);
+  padding-left: 4px;
+}
+
+.fa-moon {
+  color: var(--bs-dark);
+}/*# sourceMappingURL=Mode.css.map */

@@ -1,0 +1,104 @@
+@import './../scss/mixin.scss';
+@import './../scss/variables.scss';
+
+.services {
+    height: 88.6vh;
+    @include main-content;
+    overflow-y: scroll;
+    padding: 4rem 3.2rem;
+
+    @media only screen and (max-width: 1400px) {
+        width: 58rem;
+    }
+    @media only screen and (max-width: 1300px) {
+        height: 89.3vh;
+    }
+
+    @include respond(tab-land) {
+        width: 100%;
+    }
+
+    &::-webkit-scrollbar {
+        width: .5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #eaeaea;
+        border-radius: 1rem;
+    }
+
+    &__title {
+        @include section-title;
+        color: var(--bs-black);
+        margin-bottom: 2rem;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: .8rem;
+        // margin-bottom: 2.4rem;
+
+        &__item {
+            border: 1px solid #e2e2e2;
+            border-radius: 4px;
+            margin-bottom: 0.8rem;
+            padding: 1.2rem 1.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &__inform {
+                h2 {
+                    margin-bottom: .2rem;
+                    @include item-title;
+                    color: var(--bs-black);
+                }
+
+                p {
+                    @include item-text;
+                    color: var(--bs-item-text)
+                }
+            }
+
+            &__price {
+                span {
+
+                    font-size: 1.6rem;
+                    color: var(--bs-blue);
+                    letter-spacing: -.02em;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    &__guide {
+        &__title {
+
+            margin: 4rem 0 1.6rem 0;
+
+            h2 {
+                @include section-title;
+                color: var(--bs-black);
+            }
+        }
+
+        &__text {
+            p {
+                @include item-text;
+                color: var(--bs-item-text);
+                font-size: 1.4rem;
+                margin-bottom: 1.2rem;
+            }
+            a{
+                font-size: 1.4rem;
+                color: var(--bs-blue);
+                text-decoration: underline;
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

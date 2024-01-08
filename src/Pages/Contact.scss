@@ -1,0 +1,100 @@
+@import './../scss/mixin.scss';
+@import './../scss/variables.scss';
+
+.contact {
+    height: 88.6vh;
+    @include main-content;
+    padding: 4rem 3.2rem;
+    overflow-y: scroll;
+    
+    @media only screen and (max-width: 1400px) {
+        width: 58rem;
+    }
+    @media only screen and (max-width: 1300px) {
+        height: 89.2vh;
+    }
+    @include respond(tab-land) {
+        width: 100%;
+        padding: 2rem 1.5rem;
+    }
+
+    &::-webkit-scrollbar {
+        width: .5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #eaeaea;
+        border-radius: 1rem;
+    }
+
+    &__title {
+        margin-bottom: 2rem;
+        @include respond(tab-land) {
+            margin-top: 2rem;
+        }
+
+        h1 {
+            @include section-title;
+            color: var(--bs-black);
+        }
+    }
+
+    &__adress {
+        display: flex;
+
+        h2 {
+            min-width: 16rem;
+            @include job-name;
+            color: var(--bs-black);
+            margin-right: 2.5rem
+        }
+
+        ul {
+            li {
+                @include contact-text;
+                color: var(--bs-text);
+            }
+        }
+    }
+
+    &__location {
+        margin-top: 2.4rem;
+        padding-bottom: 3.2rem;
+        margin-bottom: 2.4rem;
+        border-bottom: 1px solid var(--bs-border-color);
+        iframe{
+            @media only screen and (max-width: 1400px) {
+                width: 50rem !important;
+            }
+            @include respond(tab-land) {
+                width: 100% !important;
+            }
+        }
+    }
+
+    &__item {
+        padding-bottom: 3.2rem;
+        margin-bottom: 2.4rem;
+        border-bottom: 1px solid var(--bs-border-color);
+        display: flex;
+
+        &:last-child{
+            border: none;
+        }
+        h2 {
+            min-width: 16rem;
+            @include job-name;
+            color: var(--bs-black);
+            margin-right: 2.5rem
+        }
+
+        ul {
+            li {
+                a {
+                    @include contact-text;
+                    color: var(--bs-text);
+                }
+            }
+        }
+    }
+}

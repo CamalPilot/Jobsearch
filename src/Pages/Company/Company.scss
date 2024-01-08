@@ -1,0 +1,14 @@
+@import './../../scss/mixin.scss';
+@import './../../scss/variables.scss';
+
+.company{
+    @include main-content;
+    height: 100vh;
+
+    @media only screen and (max-width: 1400px) {
+        width:58rem;
+    }
+    @include respond(tab-land){
+        width: 100%;
+    }
+}

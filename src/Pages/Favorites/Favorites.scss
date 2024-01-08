@@ -1,0 +1,75 @@
+@import './../../scss/mixin.scss';
+@import './../../scss/variables.scss';
+
+.favorites {
+    @include main-content;
+    height: 94.3vh;
+    padding: 2rem 1.5rem;
+    @media only screen and (max-width: 1400px) {
+        width:58rem;
+    }
+    @include respond(tab-land){
+        width: 100%;
+    }
+    &__title {
+        h2 {
+            @include section-title;
+            color: var(--bs-black);
+            @include respond(tab-land){
+                margin-top: 3rem;
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+
+        &__icon {
+            display: flex;
+            width: 8rem;
+            height: 8rem;
+            background: var(--bs-bg-content);
+            border-radius: 50%;
+            justify-content: center;
+            margin: 0 auto 1.6rem;
+            align-items: center;
+            &__heart{
+                width: 2.7rem;
+                height: 2.4rem;
+                color: var(--bs-gray50);
+            }
+        }
+
+        &__text {
+            margin-bottom: 2.3rem;
+
+            h3 {
+                @include job-name;
+                color: var(--bs-black);
+            }
+        }
+
+        &__link {
+            a {
+                background: rgba(12, 77, 222, .05);
+                border-color: rgba(12, 77, 222, .05);
+                margin-top: 4px;
+                font-weight: 500;
+                font-size: 1.4rem;
+                line-height: 2.4rem;
+                border-radius: 5px;
+                cursor: pointer;
+                padding: .85rem 2.4rem;
+                color: var(--bs-blue);
+                &:hover{
+                    background: var(--bs-blue);
+                    color: var(--bs-color-white);
+                }
+            }
+        }
+    }
+}
