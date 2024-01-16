@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import "./Main.scss";
 import MainJob from "./MainJob";
 

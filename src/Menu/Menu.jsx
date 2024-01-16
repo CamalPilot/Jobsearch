@@ -8,11 +8,13 @@ import { format } from "date-fns";
 import LInks from "./LInks";
 // import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
+import Navbar from "./navbar/Navbar";
+import Footer from "./footer/Footer";
 
 
 const date = format(new Date(), "yyyy");
 
-const Menu = React.forwardRef(({ links = [], items = [], item = [], showMenu, favoriteCount, }, ref) => {
+const Menu = React.forwardRef(({ links = [], items = [], item = [], showMenu, favoriteCount, setShowMenu}, ref) => {
   
   return (
     <div ref={ref} className={`sidebar ${showMenu ? 'show' : ''} ${'show' ? 'slideRight' : 'slideLeft'}`}>
@@ -22,6 +24,8 @@ const Menu = React.forwardRef(({ links = [], items = [], item = [], showMenu, fa
             <img className="logo" src={logo} alt="logo" />
             </Link>
         </div>
+
+
         <div className="sidebar__logo__lang">
           <a href="#">
             AZ <IoIosArrowDown />{" "}
@@ -36,48 +40,22 @@ const Menu = React.forwardRef(({ links = [], items = [], item = [], showMenu, fa
           </ul>
         </div>
       </div>
+
+      
       <div className="sidebar__menu">
-        <ul>
-          {items.map((item) => {
-            return (
-              <LInks
-                key={item.id}
-                to={`/${item.text}`}
-                text={item.text}
-                icon={item.icon}
-              />
-            );
-          })}
-              
-        </ul>
+        <Navbar items = {items}  setShowMenu={setShowMenu} />
         <span className="sidebar__menu__heading">{('Sizin JobSearch')}</span>
-        <ul>
-          {item.map((element) => (
-            <LInks
-              key={element.id}
-              to={`/${element.text}`}
-              text={element.text}
-              icon={element.icon}
-              count={favoriteCount}
-            >
-              {/* <span>{element.count}</span> */}
-            </LInks>
-          ))}
-        </ul>
+        <LInks item = {item} setShowMenu={setShowMenu}  />
       </div>
       <div className="sidebar__mode">
         <Mode />
       </div>
+      
 
+      
       <div className="sidebar__footer">
         <div className="sidebar__footer__nav">
-          <ul>
-            {links.map((link) => {
-              return (
-                <LInks key={link.id} to={`/${link.text}`} text={link.text} />
-              );
-            })}
-          </ul>
+          <Footer links = {links} setShowMenu={setShowMenu}  />
         </div>
         <div className="sidebar__footer__copyright">
           <span>© JobSearch.az 2006—{date}</span>

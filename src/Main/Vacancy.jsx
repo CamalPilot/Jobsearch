@@ -3,31 +3,48 @@ import { useDispatch, useSelector } from "react-redux";
 import { VscEye } from "react-icons/vsc";
 import HeartIcon from "./HeartIcon";
 import { Link } from "react-router-dom";
+import { viewCountIncrement } from "../features/data/dataSlice";
 
+function Vacancy({ vacancyClickHandle, item }) {
+  const { data } = useSelector((state) => state.mainData);
+  
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate());
+  const options = { day: "numeric", month: "short" };
+  const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
-function Vacancy({vacancyClickHandle,item}) {
-    const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate());
-    const options = { day: "numeric", month: "short" };
-    const formattedDate = currentDate.toLocaleDateString("en-US", options);
+  const [isLoading, setLoading] = useState(true);
+  const [shouldHideInfo, setHideInfo] = useState(true);
 
-    const [isLoading, setLoading] = useState(true);
-    const [shouldHideInfo, setHideInfo] = useState(true);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        const delay = setTimeout(() => {
-            setLoading(false);
-            setHideInfo(false);
-        }, 1000);
-        return () => clearTimeout(delay);
-    }, []);
+  function handleClick(e) {
+    vacancyClickHandle(item.id);
+      const updatedData = data.map(i => {
+        if (item.id === i.id) {
+          return {
+            ...item,
+            viewCount: item.viewCount + 1
+          };
+        }
+        return i;
+      });
+      dispatch(viewCountIncrement(updatedData))
+  }
 
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setLoading(false);
+      setHideInfo(false);
+    }, 1000);
+    return () => clearTimeout(delay);
+  }, []);
 
   return (
     <div className="main__jobs" key={item.id}>
       <Link
         to={`/Elanlar/${item.id}`}
-        onClick={() => vacancyClickHandle(item.id)}
+        onClick={(e) => handleClick(e)}
       >
         <div className="main__jobs__company">
           {isLoading ? (
@@ -39,37 +56,24 @@ function Vacancy({vacancyClickHandle,item}) {
           )}
           <div className="main__jobs__company__type">
             {isLoading ? (
-              <a href="" className="job-name loading"></a>
+              <span className="job-name loading"></span>
             ) : (
-              <a href="" className="job-name">
-                {item.vacancyName}
-              </a>
+              <span className="job-name">{item.vacancyName}</span>
             )}
             {isLoading ? (
-              <a href="" className="company-name loading"></a>
+              <span className="company-name loading"></span>
             ) : (
-              <a href="" className="company-name">
-                {item.companyName}
-              </a>
+              <span className="company-name">{item.companyName}</span>
             )}
           </div>
         </div>
       </Link>
       <div className={`main__jobs__info ${shouldHideInfo ? "hideInfo" : ""}`}>
         <span className="main__jobs__info__watch">
-          <VscEye /> 0
+          <VscEye />{item.viewCount}
         </span>
         <span>{formattedDate}</span>
-        <div
-        // onClick={() =>
-        //   favoriteHandle(
-        //     item.id,
-        //     item.image,
-        //     item.vacancyName,
-        //     item.companyName
-        //   )
-        // }
-        >
+        <div>
           <HeartIcon id={item.id} />
         </div>
       </div>

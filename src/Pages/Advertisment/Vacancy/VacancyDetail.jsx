@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./VacancyDetail.scss";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import { VscEye } from "react-icons/vsc";
 import HeartIcon from "../../../Main/HeartIcon";
 import { MdAccessTime } from "react-icons/md";
@@ -13,19 +13,15 @@ currentDate.setDate(currentDate.getDate() + 30);
 const options = { day: "numeric", month: "short", year: "numeric" };
 const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
-const VacancyDetail = ({ id,  }) => {
+const VacancyDetail = ({ id  }) => {
   const [activeTab, setActiveTab] = useState(0);
   const { data } = useSelector((state) => state.mainData);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-  // const { id } = useParams();
   const vacancy = data?.find((item) => item.id === parseInt(id));
 
-  // if (!vacancy) {
-  //   return <div>Advertisment is not found.</div>;
-  // }
   return (
     <div className="detail">
       <div className="detail__heading">
@@ -40,9 +36,9 @@ const VacancyDetail = ({ id,  }) => {
         </div>
         <div className="detail__heading__end">
           <span className="detail__heading__end__watch">
-            <VscEye /> 0
+            <VscEye /> {vacancy.viewCount}
           </span>
-          <HeartIcon />
+          <HeartIcon id ={vacancy.id} />
         </div>
       </div>
       <div className="detail__vacancy">
@@ -54,7 +50,7 @@ const VacancyDetail = ({ id,  }) => {
             <MdAccessTime style={{ color: "#de7d0b" }} /> Son tarix{" "}
             {formattedDate}
           </span>
-          <a href=""> Maliyyə xidmətləri</a>
+          <Link to="/"> {vacancy.category}</Link>
         </div>
       </div>
       <div className="detail__content">
@@ -73,7 +69,6 @@ const VacancyDetail = ({ id,  }) => {
           >
             Şirkət haqqında
           </a>
-          {/* <a href="">Digər iş elanları</a> */}
         </div>
         <div
           className={`detail__content__description ${

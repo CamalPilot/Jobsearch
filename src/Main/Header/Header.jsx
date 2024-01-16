@@ -2,11 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import { HiOutlineMenu } from "react-icons/hi";
 import logo from "./../../Assets/jobsearch.png"
-import { useState } from 'react';
+// import { useState } from 'react';
 import Menu from '../../Menu/Menu';
 
-const Header = ({ links, item, items}) => {
-  const [showMenu, setShowMenu] = useState(false)
+const Header = ({ links, item, items, showMenu, setShowMenu}) => {
   const menuRef = useRef(null)
 
   const handleToggleMenu = () => {

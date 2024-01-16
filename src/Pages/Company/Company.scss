@@ -1,14 +1,79 @@
 @import './../../scss/mixin.scss';
 @import './../../scss/variables.scss';
 
-.company{
+.company {
     @include main-content;
     height: 100vh;
 
     @media only screen and (max-width: 1400px) {
-        width:58rem;
+        width: 58rem;
     }
-    @include respond(tab-land){
+
+    @include respond(tab-land) {
         width: 100%;
+        margin-top: 5rem;
+    }
+
+    &__item {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        position: relative;
+        padding: 1rem 1.6rem;
+
+        @include respond(tab-land) {
+            margin-top: 5rem;
+        }
+
+        // box-shadow: 0 1px 0 0 #eaeaea, 0 1px 0 0 #eaeaea inset;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            border-top: 2px solid var(--bs-border-color);
+        }
+
+        &__img {
+            background: rgba(12, 77, 222, .05);
+            padding: .5rem .5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            img {
+                width: 4.2rem;
+                height: 4.2rem;
+                border-radius: 50%;
+
+            }
+        }
+
+        &__body {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+            width: 100%;
+            align-items: center;
+
+            &__text {
+                    h3 {
+                        @include job-name;
+                        color: var(--bs-black);
+                        margin-bottom: .2rem;
+                    }
+                    p{
+                        color: var(--bs-company-name);
+                    }
+                
+            }
+
+            &__end {
+                color: var(--bs-company-name);
+            }
+        }
     }
 }

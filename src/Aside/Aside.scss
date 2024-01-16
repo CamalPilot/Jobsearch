@@ -20,8 +20,9 @@
         height: 100vh;
     }
     @include respond(tab-land){
-        display: none;
+     width: 100%;   
     }
+    
 
     &__statistic__block {
         display: flex;
@@ -77,7 +78,11 @@
     &__add{
         width: 62rem;
         height: 28.75rem;
+        @include respond(tab-land){
+            width: 100%;
+        }
     }
+    
 }
 
 .count {

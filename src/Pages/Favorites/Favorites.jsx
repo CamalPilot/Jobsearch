@@ -11,10 +11,18 @@ const Favorites = ({ favoriteList }) => {
 
   return (
   <>
+  
   <div className="favorites">
       <div className="favorites__title">
         <h2>Seçdiyim iş elanları</h2>
       </div>
+    {
+       !favoritedData.length
+      
+      ?
+    
+     <>
+
       <div className="favorites__content">
         <div className="favorites__content__icon">
           <IoHeartSharp className="favorites__content__icon__heart" />
@@ -26,13 +34,19 @@ const Favorites = ({ favoriteList }) => {
           <Link to="/">Vakansiyaya keçid</Link>
         </div>
       </div>
-    {
-      favoritedData.map(item => (
+      </>
 
+      :
+    <>
+      {
+      favoritedData.map(item => (
+        
         <Vacancy key={item.id} item={item}/>
 
       ))
     }
+    </>
+  }
     </div>
   </>
   );
