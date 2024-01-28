@@ -1,23 +1,35 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { setCompanyID } from "../../features/data/dataSlice";
 
-const CompanyItem = ({ company, companyData }) => {
+const CompanyItem = ({ company, companyData, companyClickHandle }) => {
+  const { data } = useSelector((state) => state.mainData);
+  const firstLetter = company.charAt(0).toUpperCase()
+  const dispatch = useDispatch()
+  
+  const clickHandle = (newCompanyName) => {
+    companyClickHandle(companyData.id)
+    dispatch(setCompanyID(newCompanyName))
+    // console.log(company);
+  }
   return (
-    <div>
-      <div className="company__item">
+    <Link to = {`/Şirkətlər/${companyData.id}`}>
+      <div className="company__item" onClick={() => clickHandle(company)}>
         <div className="company__item__img">
-          <img src="https://media.licdn.com/dms/image/C4E0BAQHqPZyEVdNg1A/company-logo_200_200/0/1673424332653?e=2147483647&v=beta&t=ucBq61-4jgHMt0BmblI6uI6fqna-Vy6mrXtpN_qj5CA" alt=""/>
+          {firstLetter}
         </div>
         <div className="company__item__body">
           <div className="company__item__body__text">
             <h3>{company}</h3>
-            <p>{companyData.category}</p>
+            <p>{companyData.categoryName}</p>
           </div>
           <div className="company__item__body__end">
-            <span>{companyData.vacancyCount}  iş elanı</span>
+            <span>{data.filter(item => item.companyName == company).length} iş elanı</span>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,36 +1,40 @@
 import React, { useState } from "react";
 import "./VacancyDetail.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import {  useNavigate, } from "react-router-dom";
 import { VscEye } from "react-icons/vsc";
 import HeartIcon from "../../../Main/HeartIcon";
 import { MdAccessTime } from "react-icons/md";
-// import { format } from "date-fns";
+import { setCategoryID } from "../../../features/data/dataSlice";
 
-// const date = format(new Date(),"d MMMM  yyyy");
 const currentDate = new Date();
 currentDate.setDate(currentDate.getDate() + 30);
 const options = { day: "numeric", month: "short", year: "numeric" };
 const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
+
 const VacancyDetail = ({ id  }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const { data } = useSelector((state) => state.mainData);
+  const { data, categories } = useSelector((state) => state.mainData);
 
+  const dispatch = useDispatch();
+const navigate = useNavigate();
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
   const vacancy = data?.find((item) => item.id === parseInt(id));
+
+  const handleClickCategory = (categoryID) => {
+    dispatch(setCategoryID(categoryID));
+    navigate('/Elanlar')
+  }
 
   return (
     <div className="detail">
       <div className="detail__heading">
         <div className="detail__heading__title">
           <div className="detail__heading__title__logo">
-            <img
-              src="https://www.webcoder.az/siteassets/img/logo_webcoder.png"
-              alt=""
-            />
+            <img src={vacancy.image} alt="" />
           </div>
           <h3> {vacancy.companyName}</h3>
         </div>
@@ -46,11 +50,11 @@ const VacancyDetail = ({ id  }) => {
           <h2>{vacancy.vacancyName}</h2>
         </div>
         <div className="detail__vacancy__date">
-          <span>
+          <span className="detail__vacancy__date__format">
             <MdAccessTime style={{ color: "#de7d0b" }} /> Son tarix{" "}
             {formattedDate}
           </span>
-          <Link to="/"> {vacancy.category}</Link>
+          <span className="detail__vacancy__date__category" onClick={() => handleClickCategory(vacancy.categoryID)} > {categories.find((ctg) => ctg.id == vacancy.categoryID).categoryName}</span>
         </div>
       </div>
       <div className="detail__content">

@@ -11,66 +11,76 @@ import marketing from "./../CreateAd/img/marketing.svg";
 import money from "./../CreateAd/img/money.svg";
 import traininng from "./../CreateAd/img/traininng.svg";
 import AppLayout from "../../layouts/AppLayout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setCategoryID } from "../../features/data/dataSlice";
 
-function Category({ companyCount }) {
-  const { data } = useSelector((state) => state.mainData);
-  const uniqueCategories = Array.from(new Set(data.map((item) => item.category)));
+function Category() {
+  const { data, categories } = useSelector((state) => state.mainData);
+  const uniqueCategories = Array.from(new Set(data.map((item) => item.categoryID)));
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  const categoryClickHandle = (categoryID) => {
+    dispatch(setCategoryID(categoryID));
+    navigate('/Elanlar')
+  }
   return (
     <>
       <AppLayout />
-      <div className="category">
+      <div className="category" >
         {uniqueCategories.map((category) => {
-          const categoryData = data.find((item) => item.category === category);
+          // console.log(category,'444');
+          const categoryData = data.find((item) => item.categoryID === category);
           let imagePath = "";
           switch (category) {
-            case "Mühəndislik":
+            case 4:
               imagePath = engineering;
               break;
-            case "Komputerləşmə və İKT":
+            case 1:
               imagePath = IT;
               break;
-            case "Inzibati, Biznes və İdarəetmə":
+            case 2:
               imagePath = buisness;
               break;
-            case "Maliyyə xidmətləri":
+            case 3:
               imagePath = money;
               break;
-            case "Təlim və tədris":
+            case 5:
               imagePath = traininng;
               break;
-            case "Otel, İaşə, Turizm":
+            case 6:
               imagePath = hotel;
               break;
-            case "Nəqliyyat, paylama və logistika":
+            case 7:
               imagePath = delivery;
               break;
-            case "Dizayn, incəsənət və sənətkarlıq":
+            case 8:
               imagePath = design;
               break;
-            case "Səhiyyə":
+            case 9:
               imagePath = health;
               break;
-            case "Marketinq, reklam, çap və nəşriyyat":
+            case 10:
               imagePath = marketing;
               break;
           }
 
           return (
-            <div className="category__item" key={categoryData.id}>
+            <div className="category__item" key={categoryData.id} onClick={() =>categoryClickHandle(category)}>
+              {/* <Link to={`/category/${categoryData.categoryID}`}></Link> */}
               <div className="category__item__img">
                 <img src={imagePath} alt={category} />
               </div>
               <div className="category__item__body">
                 <div className="category__item__body__text">
                   <a href="#">
-                    <h3>{categoryData.category}</h3>
-                    {categoryData.vacancyCount} iş elanı
+                    <h3>{categories.find((ctg) => ctg.id == category).categoryName}</h3>
+                    {data.filter(item => item.categoryID == category).length} iş elanı
                   </a>
                 </div>
                 <div className="category__item__body__end">
-                {categoryData.companyCount} şirkət
+                {categories.find(item => item.id == category).company.length} şirkət
                 </div>
               </div>
             </div>

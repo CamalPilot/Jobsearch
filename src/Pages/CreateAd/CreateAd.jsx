@@ -4,7 +4,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { setMainData, viewCountIncrement } from "../../features/data/dataSlice";
 import Main from "../../Main/Main";
 import "./CreateAd.scss";
-import { vacancyCountIncrement, companyCountIncrement } from "../../features/data/dataSlice";
+import { vacancyCountIncrement, companyCountIncrement, vacancyStatisticIncrement } from "../../features/data/dataSlice";
+import { useEffect } from "react";
 
 const CreateAd = ({ dataHandler }) => {
 
@@ -15,7 +16,7 @@ const CreateAd = ({ dataHandler }) => {
     image: "",
     require: "",
     companyDescription: "",
-    category: "",
+    categoryID: undefined,
     id: "",
     obligations: "",
     workingConditions: "",
@@ -27,20 +28,31 @@ const CreateAd = ({ dataHandler }) => {
   const [isValid, setIsValid] = useState(false);
 
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.mainData);
+  const { data, categories } = useSelector((state) => state.mainData);
+  // console.log(categories);
 
   const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-      id: Date.now(),
-    });
+    if (name == "categoryID") {
+      setFormData({
+        ...formData,
+        [name]: Number(value),
+        id: Date.now(),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+        id: Date.now(),
+      });
+    }
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log("testttttt");
 
     const {
       vacancyName,
@@ -48,7 +60,7 @@ const CreateAd = ({ dataHandler }) => {
       image,
       require,
       companyDescription,
-      category,
+      categoryID,
       obligations,
       workingConditions,
     } = formData;
@@ -59,7 +71,7 @@ const CreateAd = ({ dataHandler }) => {
       image &&
       require &&
       companyDescription &&
-      category &&
+      categoryID &&
       obligations &&
       workingConditions
     ) {
@@ -71,21 +83,37 @@ const CreateAd = ({ dataHandler }) => {
         formData.image,
         formData.require,
         formData.companyDescription,
-        formData.category,
+        formData.categoryID,
         formData.obligations,
         formData.workingConditions,
         formData.vacancyCount,
         formData.companyCount,
         formData.viewCount
       );
-      dispatch(vacancyCountIncrement({ category: formData.category }));
-      dispatch(companyCountIncrement({ category: formData.category, companyName: formData.companyName }));
+
+      const newAdCategoryID = formData.categoryID;
+
+      const otherCategories = categories.filter(cat => cat.id != newAdCategoryID);
+      let existingCategory = categories.find((cat) => cat.id === newAdCategoryID);            
+      let newCategories;
+
+
+      if (!existingCategory.company.includes(formData.companyName)) {
+        let newExistingCategory = { ...existingCategory };
+        newExistingCategory.company  = [ ...newExistingCategory.company, formData.companyName];
+        newCategories = [...otherCategories, newExistingCategory];
+      }
+
+      dispatch(vacancyCountIncrement({ category: formData.categoryID }));
+      newCategories && dispatch(companyCountIncrement(newCategories));
+      dispatch(vacancyStatisticIncrement())
       navigate("/Elanlar");
     } else {
       setIsValid(false);
     }
   };
-
+ 
+  // console.log(data);
  
 
   return (
@@ -96,29 +124,18 @@ const CreateAd = ({ dataHandler }) => {
             <form className="create__form" onSubmit={handleSubmit}>
               <select
                 className="create__form__select"
-                name="category"
-                value={formData.category}
+                name="categoryID"
+                value={formData.categoryID}
                 onChange={handleInputChange}
               >
                 <option value="">Kateqoriya seç</option>
-                <option value="Komputerləşmə və İKT">Komputerləşmə və İKT</option>
-                <option value="Inzibati, Biznes və İdarəetmə">
-                  Inzibati, Biznes və İdarəetmə
-                </option>
-                <option value="Maliyyə xidmətləri">Maliyyə xidmətləri</option>
-                <option value="Mühəndislik">Mühəndislik</option>
-                <option value="Təlim və tədris">Təlim və tədris</option>
-                <option value="Otel, İaşə, Turizm">Otel, İaşə, Turizm</option>
-                <option value="Nəqliyyat, paylama və logistika">
-                  Nəqliyyat, paylama və logistika
-                </option>
-                <option value="Dizayn, incəsənət və sənətkarlıq">
-                  Dizayn, incəsənət və sənətkarlıq
-                </option>
-                <option value="Səhiyyə">Səhiyyə</option>
-                <option value="Marketinq, reklam, çap və nəşriyyat">
-                  Marketinq, reklam, çap və nəşriyyat
-                </option>
+                {
+                  categories.map((item) => {
+                    return(
+                      <option value={item.id} key={item.id}>{item.categoryName}</option>
+                    )
+                  })
+                }
               </select>
               <input
                 className="create__form__input"

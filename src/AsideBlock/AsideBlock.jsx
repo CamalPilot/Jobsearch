@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const AsideBlock = () => {
+const {statistic} = useSelector(state => state.mainData)
+
   return (
     <div className="aside__statistic__block">
         <h5 className="aside__statistic__block__title">
@@ -10,16 +13,16 @@ const AsideBlock = () => {
           <ul>
             <li>
               <span>Günlük</span>
-              <span className="count">80</span>
+              <span className="count">{statistic.daily}</span>
             </li>
             <li>
               <span>Həftəlik</span>
-              <span className="count">406</span>
+              <span className="count">{statistic.weekly}</span>
             </li>
           </ul>
           <div className="aside__statistic__block__info__month">
             <span className="monthly">Aylıq</span>
-            <span className="total">503</span>
+            <span className="total">{statistic.monthly}</span>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Vacancy from "../../Main/Vacancy";
 import { useSelector } from "react-redux";
 
-const Favorites = ({ favoriteList }) => {
+const Favorites = ({ vacancyClickHandle }) => {
   const {data, favorite} = useSelector((state) => state.mainData);
   const favoritedData = data.filter((data) => favorite.includes(data.id))
 
@@ -41,7 +41,7 @@ const Favorites = ({ favoriteList }) => {
       {
       favoritedData.map(item => (
         
-        <Vacancy key={item.id} item={item}/>
+        <Vacancy key={item.id} item={item} vacancyClickHandle={vacancyClickHandle}/>
 
       ))
     }

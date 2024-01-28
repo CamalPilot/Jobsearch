@@ -18,6 +18,7 @@ function App() {
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [favoriteCount, setFavoriteCount] = useState(0)
   const [favoriteList, setFavoriteList] = useState([]);
+  const [selectedCompanyID, setSelectedCompanyID] = useState(null);
   
 
 
@@ -60,8 +61,12 @@ function App() {
 
   const vacancyClickHandle = (id) => {
     setSelectedJobId(id);
+    setSelectedCompanyID(null)
   };
-
+  const companyClickHandle = (id) => {
+    setSelectedCompanyID(id)
+    setSelectedJobId(null)
+  }
   return (
     <div className={`App ${theme}`}>
       <Routes>
@@ -70,6 +75,8 @@ function App() {
             <MainLayout
             favoriteCount = {favoriteCount}
               selectedJobId={selectedJobId}
+              selectedCompanyID={selectedCompanyID}
+              vacancyClickHandle = {vacancyClickHandle}
             />
           }
         >
@@ -109,17 +116,18 @@ function App() {
             path="Kateqoriyalar"
             element={
               <Category
-                // categoryList={categoryList}
                 data={data}
               />
             }
           />
-          <Route path="Şirkətlər" element={<Company />} />
+          <Route path="Şirkətlər" element={<Company companyClickHandle={companyClickHandle}/>} />
+          <Route path="Şirkətlər/:id" element={<Company companyClickHandle={companyClickHandle}/>} />
+
           <Route
             path="Elan Yerləşdir"
             element={<CreateAd dataHandler={dataHandler}  />}
           />
-          <Route path="Seçilmiş elanlar" element={<Favorites favoriteList = {favoriteList} />} />
+          <Route path="Seçilmiş elanlar" element={<Favorites favoriteList = {favoriteList} vacancyClickHandle={vacancyClickHandle} />} />
           <Route path="Haqqımızda" element={<About />} />
           <Route path="Xidmətlər" element={<Services />} />
           <Route path="Əlaqə" element={<Contact />} />

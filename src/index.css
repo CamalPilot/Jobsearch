@@ -19,6 +19,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.6rem;
   /* transition: .3s linear; */
+  overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+  width: .5rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #eaeaea;
+  border-radius: 1rem;
 }
 
 h1{

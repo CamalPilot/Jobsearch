@@ -12,13 +12,14 @@ function Vacancy({ vacancyClickHandle, item }) {
   currentDate.setDate(currentDate.getDate());
   const options = { day: "numeric", month: "short" };
   const formattedDate = currentDate.toLocaleDateString("en-US", options);
+  const myWidth = window.innerWidth <= 1100;
 
   const [isLoading, setLoading] = useState(true);
   const [shouldHideInfo, setHideInfo] = useState(true);
 
   const dispatch = useDispatch();
 
-  function handleClick(e) {
+  function handleClick() {
     vacancyClickHandle(item.id);
       const updatedData = data.map(i => {
         if (item.id === i.id) {
@@ -44,7 +45,7 @@ function Vacancy({ vacancyClickHandle, item }) {
     <div className="main__jobs" key={item.id}>
       <Link
         to={`/Elanlar/${item.id}`}
-        onClick={(e) => handleClick(e)}
+        onClick={handleClick}
       >
         <div className="main__jobs__company">
           {isLoading ? (
@@ -56,12 +57,13 @@ function Vacancy({ vacancyClickHandle, item }) {
           )}
           <div className="main__jobs__company__type">
             {isLoading ? (
-              <span className="job-name loading"></span>
+              <span className="job-name jobLoading"></span>
             ) : (
               <span className="job-name">{item.vacancyName}</span>
             )}
+            
             {isLoading ? (
-              <span className="company-name loading"></span>
+              <span className="company-name companyLoading"></span>
             ) : (
               <span className="company-name">{item.companyName}</span>
             )}
@@ -74,7 +76,7 @@ function Vacancy({ vacancyClickHandle, item }) {
         </span>
         <span>{formattedDate}</span>
         <div>
-          <HeartIcon id={item.id} />
+          {myWidth ? <HeartIcon display='view' id={item.id} /> : <HeartIcon id={item.id} />}
         </div>
       </div>
     </div>

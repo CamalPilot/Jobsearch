@@ -1,7 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { setCategoryID } from "../../features/data/dataSlice";
+
 
 const Navbar = ({ items, setShowMenu }) => {
+  const dispatch = useDispatch();
+  function resetCategoryFilter() {
+    dispatch(setCategoryID(0))
+  }
+
   return (
     <ul>
       {items.map((item, index) => (
@@ -9,7 +17,7 @@ const Navbar = ({ items, setShowMenu }) => {
           <NavLink
             to={`/${item.text}`}
             className={({ isActive }) => (isActive ? "active-link" : "")}
-            onClick={() => setShowMenu(false)}
+            onClick={() => {setShowMenu(false); resetCategoryFilter()}}
           >
           {item.icon}
           {item.text}

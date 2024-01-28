@@ -102,7 +102,7 @@
             margin-bottom: 2rem;
             flex-wrap: wrap;
 
-            span {
+            &__format {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
@@ -115,10 +115,11 @@
                 margin-bottom: 0.5rem;
                 font-weight: 500;
             }
-
-            a {
+            &__category{
+                cursor: pointer;
                 color: var(--bs-text);
                 position: relative;
+                
 
                 &::after {
                     content: '';

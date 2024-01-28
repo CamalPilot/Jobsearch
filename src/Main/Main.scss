@@ -10,18 +10,19 @@
     flex-direction: column;
     background: var(--bs-light);
     overflow-y: scroll;
-    
-    
+
+
     @media only screen and (max-width: 1400px) {
         width: 58rem;
 
     }
-    
-    
+
+
     @include respond(tab-land) {
         width: 100%;
         margin-top: 5rem;
     }
+
     @media (max-width: 600px) {
         width: 100%;
     }
@@ -70,8 +71,9 @@
             @media only screen and (max-width: 1400px) {
                 width: 30rem
             }
+
             @media (max-width: 600px) {
-               width: 30rem;
+                width: 25rem;
             }
 
             &__logo {
@@ -80,8 +82,9 @@
                     height: 3.6rem;
                     border-radius: 50%;
                 }
-                .imageLoading{
-                    background: linear-gradient(90deg,#eeeff4 0,rgba(238,239,244,.45) 100%);
+
+                .imageLoading {
+                    background: linear-gradient(90deg, #eeeff4 0, rgba(238, 239, 244, .45) 100%);
                     border-radius: 50%;
                     position: relative;
                     overflow: hidden;
@@ -95,30 +98,50 @@
                 flex-direction: column;
                 // transform: translateY(.5rem);
 
+
                 .job-name {
                     color: var(--bs-black);
                     @include job-name;
-                    width: 20rem;
+                    font-size: 1.5rem;
+                    // width: 20rem;
                     height: 2rem;
                     border-radius: 3px;
                     margin-bottom: 4px;
+
+                    @media (max-width: 600px) {
+                        font-size: 1.3rem;
+                        line-height: 14px;
+                    }
 
                 }
 
                 .company-name {
                     color: var(--bs-company-name);
-                    width: 7.5rem;
+                    // width: 7.5rem;
                     height: 1.8rem;
                     border-radius: 3px;
                     display: block;
                     transition: all 0.3s ease;
+
+                    @media (max-width: 600px) {
+                        font-size: 1.3rem;
+                    }
                 }
-                .loading{
-                    background: linear-gradient(90deg,#eeeff4 0,rgba(238,239,244,.45) 100%);
+
+                .jobLoading {
+                    background: linear-gradient(90deg, #eeeff4 0, rgba(238, 239, 244, .45) 100%);
                     border-radius: 5px;
                     position: relative;
                     overflow: hidden;
+                    width: 18rem;
+                }
 
+                .companyLoading {
+                    background: linear-gradient(90deg, #eeeff4 0, rgba(238, 239, 244, .45) 100%);
+                    border-radius: 5px;
+                    position: relative;
+                    overflow: hidden;
+                    width: 10rem;
                 }
             }
         }
@@ -131,12 +154,13 @@
                 @include respond(tab-land) {
                     display: none !important;
                 }
-               
+
             }
 
             span {
                 color: var(--bs-company-name);
                 font-size: 1.6rem;
+
                 // align-items: center;
                 // display: flex;
                 // border-right: 1px solid var(--bs-company-name);
@@ -160,7 +184,8 @@
         }
     }
 }
-.noData{
+
+.noData {
     color: var(--bs-black);
     text-align: center;
     font-size: 3rem;
@@ -172,7 +197,7 @@
 
 
     @include respond(tab-land) {
-        display: none;
+        transform: translateY(2px);
     }
 }
 
@@ -183,7 +208,8 @@
 
 .mobile-header {
     display: none;
-
+    position: relative;
+    
 
     @include respond(tab-land) {
         background: var(--bs-light);
@@ -191,11 +217,22 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         z-index: 1000;
+        margin-bottom: 5rem;
+    }
+
+    &__background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
     }
 
     &__logo {
@@ -208,21 +245,24 @@
         width: 2.5rem;
         height: 1.8rem;
         color: #bbb;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
     }
 }
 
 
 
-.imageLoading{
-    background: linear-gradient(90deg,#eeeff4 0,rgba(238,239,244,.45) 100%);
+.imageLoading {
+    background: linear-gradient(90deg, #eeeff4 0, rgba(238, 239, 244, .45) 100%);
     border-radius: 50%;
     position: relative;
     overflow: hidden;
     width: 3.6rem;
     height: 3.6rem;
 }
+
 .hideInfo {
     opacity: 0;
     // transition: opacity 0.5s ease-out; /* Add transition for smooth hide effect */
-  }
-  
+}

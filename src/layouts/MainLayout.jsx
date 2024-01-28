@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import '../layouts/MainLayout.scss'
+import "../layouts/MainLayout.scss";
 import Menu from "../Menu/Menu";
 import Aside from "../Aside/Aside";
 import { IoMdBriefcase } from "react-icons/io";
@@ -12,56 +12,59 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 
 const links = [
   {
-    id: 1, 
-    text: "Haqqımızda" 
+    id: 1,
+    text: "Haqqımızda",
   },
   {
-    id: 2, 
-    text: "Xidmətlər"
+    id: 2,
+    text: "Xidmətlər",
   },
   {
-    id: 3, 
-    text: "Əlaqə"
-  }
-
-]
+    id: 3,
+    text: "Əlaqə",
+  },
+];
 
 const items = [
   {
     id: 1,
     text: "Elanlar",
-    icon: <IoMdBriefcase /> 
+    icon: <IoMdBriefcase />,
   },
   {
-    id: 2, 
+    id: 2,
     text: "Kateqoriyalar",
-    icon: <MdCategory />
+    icon: <MdCategory />,
   },
   {
-    id: 3, 
+    id: 3,
     text: "Şirkətlər",
-    icon: <MdDomain /> 
+    icon: <MdDomain />,
   },
   {
-    id: 4, 
-    text: "Elan Yerləşdir", 
-    icon: <BsLayoutTextSidebar />
-  }
-]
-
-
+    id: 4,
+    text: "Elan Yerləşdir",
+    icon: <BsLayoutTextSidebar />,
+  },
+];
 
 const item = [
   {
     id: 1,
-    text: "Seçilmiş elanlar", 
-    icon: <BiSolidHeartCircle style={{ transform: 'translateY(2px)' }} />, 
-    count: 0
-  }
-]
+    text: "Seçilmiş elanlar",
+    icon: <BiSolidHeartCircle style={{ transform: "translateY(2px)" }} />,
+    count: 0,
+  },
+];
 
-const MainLayout = ({ selectedJobId, watchCount, favoriteCount }) => {
-  const [showMenu, setShowMenu] = useState(false)
+const MainLayout = ({
+  selectedJobId,
+  watchCount,
+  favoriteCount,
+  selectedCompanyID,
+  vacancyClickHandle,
+}) => {
+  const [showMenu, setShowMenu] = useState(false);
   const { id } = useParams();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -69,21 +72,48 @@ const MainLayout = ({ selectedJobId, watchCount, favoriteCount }) => {
     setWindowWidth(window.innerWidth);
   };
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-
   return (
     <>
-      <Menu links={links} item={item} items={items} favoriteCount={favoriteCount} showMenu={showMenu} setShowMenu={setShowMenu} />
-      <Header links={links} item={item} items={items} showMenu={showMenu} setShowMenu={setShowMenu} />
-      { windowWidth > 1200 ? <Outlet /> : !id && <Outlet /> }
+      <Menu
+        links={links}
+        item={item}
+        items={items}
+        favoriteCount={favoriteCount}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
+      <Header
+        links={links}
+        item={item}
+        items={items}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
+      {windowWidth > 1200 ? <Outlet /> : !id && <Outlet />}
       <div>
-        { windowWidth > 1200 ? <Aside selectedJobId={selectedJobId} watchCount={watchCount}/> :
-         id && <Aside selectedJobId={selectedJobId} watchCount={watchCount}/> }
+        {windowWidth > 1200 ? (
+          <Aside
+            selectedJobId={selectedJobId}
+            watchCount={watchCount}
+            selectedCompanyID={selectedCompanyID}
+            vacancyClickHandle={vacancyClickHandle}
+          />
+        ) : (
+          id && (
+            <Aside
+              selectedJobId={selectedJobId}
+              watchCount={watchCount}
+              selectedCompanyID={selectedCompanyID}
+              vacancyClickHandle={vacancyClickHandle}
+            />
+          )
+        )}
       </div>
     </>
   );

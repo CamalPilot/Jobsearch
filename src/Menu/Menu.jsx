@@ -17,7 +17,7 @@ const date = format(new Date(), "yyyy");
 const Menu = React.forwardRef(({ links = [], items = [], item = [], showMenu, favoriteCount, setShowMenu}, ref) => {
   
   return (
-    <div ref={ref} className={`sidebar ${showMenu ? 'show' : ''} ${'show' ? 'slideRight' : 'slideLeft'}`}>
+    <div ref={ref} className={`sidebar ${showMenu ? 'show' : ''}`}>
       <div className="sidebar__logo">
         <div className="sidebar__logo__img">
           <Link to="/Elanlar">

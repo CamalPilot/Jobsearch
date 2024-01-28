@@ -4,7 +4,11 @@ import { BsHeartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from '../features/data/dataSlice'
 
-function HeartIcon({id}) {
+function HeartIcon({id, display}) {
+  const myStyle = {
+    view:'none'
+  }
+
   const dispatch = useDispatch();
   const {favorite} = useSelector ((state) => state.mainData);
   const [hovered, setHovered] = useState(favorite.includes(id));
@@ -31,6 +35,7 @@ function HeartIcon({id}) {
       // onMouseLeave={handleHover}
       onClick={handleClick}
       className={`heart-icon ${ clicked ? "filled" : ""}`}
+      style={{display:myStyle[display]}}
     >
       <BsHeartFill />
     </div>

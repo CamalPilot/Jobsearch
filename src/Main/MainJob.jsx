@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { BsHeart } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { VscEye } from "react-icons/vsc";
-import HeartIcon from "./HeartIcon";
-import { Link } from "react-router-dom";
 import Vacancy from "./Vacancy";
 
 
 function MainJob({ vacancyClickHandle, favoriteHandle }) {
-  
-  const { data } = useSelector((state) => state.mainData);
+  const { data, categoryID } = useSelector((state) => state.mainData);
 
+  // const { data } = useSelector((state) => state.mainData);
+  const filteredData = categoryID ? data.filter(item => item.categoryID == categoryID) : data;
+  // console.log(data);
       
   return (
     <div>
-      {data && data.length > 0 ? (
-        data.map((item) => (
+      {filteredData && filteredData.length > 0 ? (
+        filteredData.map((item) => (
           <Vacancy key={item.id} item={item} vacancyClickHandle={vacancyClickHandle}/>
         ))
       ) : (
